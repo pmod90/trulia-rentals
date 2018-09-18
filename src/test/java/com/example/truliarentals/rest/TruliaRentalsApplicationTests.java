@@ -1,4 +1,4 @@
-package com.example.truliarentals;
+package com.example.truliarentals.rest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

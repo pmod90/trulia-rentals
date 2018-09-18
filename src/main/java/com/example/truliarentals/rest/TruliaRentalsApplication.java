@@ -1,4 +1,4 @@
-package com.example.truliarentals;
+package com.example.truliarentals.rest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
