@@ -1,81 +1,26 @@
 package com.example.truliarentals.rest;
 
+import com.example.truliarentals.models.OptimalPriceRetriever;
+import com.example.truliarentals.models.RentalRequest;
 import com.example.truliarentals.models.Response;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.PathParam;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+
 
 @CrossOrigin
 @RestController
 public class TruliaRentalResource {
-    private static final String PATH = "./challenge_data.csv";
-    private static final Map<String, List<Double>> map = new HashMap<>();
-    private static final Map<String, Double> lookUpMap = new HashMap<>();
 
+@Autowired
+private OptimalPriceRetriever retriever;
 
-    @RequestMapping(value = "/optimalPrice", method = RequestMethod.GET, produces ={"application/json"})
+    @RequestMapping(value = "/rentals/optimal-price", method = RequestMethod.GET, produces ={"application/json"})
     public Response getOptimalPrice(@PathParam("bedrooms")String bedrooms, @PathParam("bathrooms")String bathrooms, @PathParam("squarefeet")String squarefeet) throws IOException{
-
-        if(lookUpMap.size()== 0)
-        {
-            loadResourceMap();
-        }
-        String lookupKey = bedrooms + "_" + bathrooms;
-        if(lookUpMap.containsKey(lookupKey))
-        {
-            return lookUpMap.get(lookupKey) * Double.parseDouble(squarefeet);
-        }
-        else {
-            return 0.0;
-        }
-    }
-
-
-    private void loadResourceMap() {
-        CSVParser csvParser;
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(PATH));
-            csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader()
-                    .withIgnoreHeaderCase().withTrim());
-        }
-        catch (IOException ex){
-            throw new InternalServerErrorException("Internal Server Error");
-        }
-        for(CSVRecord cvsRecord: csvParser){
-            double price = Double.parseDouble(cvsRecord.get("Price"));
-            int numberOfBedrooms = Integer.parseInt(cvsRecord.get("Bedrooms"));
-            int numberOfBathrooms = Integer.parseInt(cvsRecord.get("Bathrooms"));
-            double square_feet = Double.parseDouble(cvsRecord.get("square-foot"));
-
-            double price_per_square_foot = price/square_feet;
-
-            String key = String.valueOf(numberOfBedrooms) + "_" + String.valueOf(numberOfBathrooms);
-
-            if(map.containsKey(key)){
-                map.get(key).add(price_per_square_foot);
-            }
-            else{
-                List<Double> list = new ArrayList();
-                list.add(price_per_square_foot);
-                map.put(key,list);
-            }
-        }
-        for(String key : map.keySet())
-        {
-            Collections.sort(map.get(key));
-            lookUpMap.put(key, map.get(key).get(map.get(key).size()/2));
-        }
+        return retriever.getOptimalPrice(new RentalRequest(bedrooms, bathrooms, squarefeet));
     }
 }

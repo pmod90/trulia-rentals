@@ -5,10 +5,14 @@ package com.example.truliarentals.models;
  */
 public class Response {
 
-    Double optimalPrice;
+    private Double optimalPrice;
 
     public void setOptimalPrice(Double optimalPrice) {
         this.optimalPrice = optimalPrice;
+    }
+
+    public Double getOptimalPrice() {
+        return optimalPrice;
     }
 
     @Override
@@ -27,4 +31,10 @@ public class Response {
         return optimalPrice != null ? optimalPrice.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "Response{" +
+                "optimalPrice=" + optimalPrice +
+                '}';
+    }
 }
