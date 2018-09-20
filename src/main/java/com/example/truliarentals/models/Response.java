@@ -1,16 +1,22 @@
 package com.example.truliarentals.models;
 
 /**
- * Created by Yamini on 9/16/18.
+ * Class containing the optimal price information.
  */
 public class Response {
 
     private Double optimalPrice;
 
+    /**
+     * @param optimalPrice the optimal price to set.
+     */
     public void setOptimalPrice(Double optimalPrice) {
         this.optimalPrice = optimalPrice;
     }
 
+    /**
+     * @return the optimal price as a Double.
+     */
     public Double getOptimalPrice() {
         return optimalPrice;
     }

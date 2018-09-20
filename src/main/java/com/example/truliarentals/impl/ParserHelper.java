@@ -12,13 +12,17 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Created by Yamini on 9/17/18.
+ * Helper class for for loading the data from csv file into a map.
  */
 public class ParserHelper {
     private static final String PATH = "./challenge_data.csv";
     private static final Map<String, List<Double>> map = new HashMap<>();
     private static final Map<String, Double> lookUpMap = new HashMap<>();
 
+    /**
+     * Loads the map keyed by String of number of bedrooms and bathrooms to the price per square feet.
+     * @return map of number of bedrooms and bathrooms to the price per square feet.
+     */
     public Map<String, Double> loadResourceMap(){
         if(lookUpMap.size() > 0){
             return lookUpMap;

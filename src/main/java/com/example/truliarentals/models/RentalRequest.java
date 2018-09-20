@@ -1,7 +1,7 @@
 package com.example.truliarentals.models;
 
 /**
- * Created by Yamini on 9/16/18.
+ * Class containing the Rental information.
  */
 public class RentalRequest {
 
@@ -9,20 +9,35 @@ public class RentalRequest {
     private String bathRooms;
     private String squareFeet;
 
+    /**
+     * Constructer for Rental Request
+     * @param bedRooms the number of bedrooms of the rental.
+     * @param bathRooms the number of bathrooms of the rental.
+     * @param squareFeet the square feet value of the rental
+     */
     public RentalRequest(String bedRooms, String bathRooms, String squareFeet){
         this.bedRooms = bedRooms;
         this.bathRooms = bathRooms;
         this.squareFeet = squareFeet;
     }
 
+    /**
+     * @return the number of bedrooms as String
+     */
     public String getBedRooms() {
         return bedRooms;
     }
 
+    /**
+     * @return the number of bathrooms as String
+     */
     public String getBathRooms() {
         return bathRooms;
     }
 
+    /**
+     * @return the square feet value of the rental as String
+     */
     public String getSquareFeet() {
         return squareFeet;
     }

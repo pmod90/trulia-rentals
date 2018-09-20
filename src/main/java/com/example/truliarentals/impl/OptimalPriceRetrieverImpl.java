@@ -9,7 +9,7 @@ import javax.ws.rs.InternalServerErrorException;
 import java.util.Map;
 
 /**
- * Created by Yamini on 9/17/18.
+ * Implementation class for {@link OptimalPriceRetriever}
  */
 @Component
 public class OptimalPriceRetrieverImpl implements OptimalPriceRetriever {

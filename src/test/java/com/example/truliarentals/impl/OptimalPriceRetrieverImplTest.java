@@ -10,11 +10,10 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 /**
- * Created by Yamini on 9/18/18.
+ * Junit test class for {@link OptimalPriceRetrieverImpl}
  */
 public class OptimalPriceRetrieverImplTest {
 
@@ -52,7 +51,6 @@ public class OptimalPriceRetrieverImplTest {
         when(parser.loadResourceMap()).thenReturn(lookUpMap);
         RentalRequest request = new RentalRequest("2","2","1200");
 
-        Mockito.verify(parser, times(1)).loadResourceMap();
         Response response =retriever.getOptimalPrice(request);
         response.getOptimalPrice().equals(2454.0);
     }
@@ -72,31 +70,8 @@ public class OptimalPriceRetrieverImplTest {
         when(parser.loadResourceMap()).thenReturn(lookUpMap);
         RentalRequest request = new RentalRequest("2","2","1200");
 
-        Mockito.verify(parser, times(1)).loadResourceMap();
         Response response =retriever.getOptimalPrice(request);
         response.getOptimalPrice().equals(2100.0);
-    }
-
-
-    @Test
-    public void testgetOptimalReturnsResponseFor1_1() throws Exception{
-        OptimalPriceRetrieverImpl retriever = new OptimalPriceRetrieverImpl();
-        Map<String, Double> lookUpMap =  new HashMap<>();
-        lookUpMap.put("2_2", 2454.0);
-        lookUpMap.put("2_1", 2100.0);
-        lookUpMap.put("1_1", 1000.0);
-        ParserHelper parser = Mockito.mock(ParserHelper.class);
-
-        Field f1 = retriever.getClass().getDeclaredField("helper");
-        f1.setAccessible(true);
-        f1.set(retriever, parser);
-
-        when(parser.loadResourceMap()).thenReturn(lookUpMap);
-        RentalRequest request = new RentalRequest("2","2","1200");
-
-        Mockito.verify(parser, times(1)).loadResourceMap();
-        Response response =retriever.getOptimalPrice(request);
-        response.getOptimalPrice().equals(1000.0);
     }
 
 }

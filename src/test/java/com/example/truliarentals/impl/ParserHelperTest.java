@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.Map;
 
 /**
- * Created by Yamini on 9/18/18.
+ * Junit test class for {@link ParserHelper}
  */
 public class ParserHelperTest {
 
