@@ -17,9 +17,12 @@ import java.util.*;
 public class ParserHelper {
     private static final String PATH = "./challenge_data.csv";
     private static final Map<String, List<Double>> map = new HashMap<>();
+    private static final Map<String, Double> lookUpMap = new HashMap<>();
 
-    public static Map<String, Double> loadResourceMap(){
-        Map<String, Double> lookUpMap = new HashMap<>();
+    public Map<String, Double> loadResourceMap(){
+        if(lookUpMap.size() > 0){
+            return lookUpMap;
+        }
         CSVParser csvParser;
         try {
             Reader reader = Files.newBufferedReader(Paths.get(PATH));

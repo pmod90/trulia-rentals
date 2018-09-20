@@ -13,16 +13,23 @@ import java.util.Map;
  */
 @Component
 public class OptimalPriceRetrieverImpl implements OptimalPriceRetriever {
+    private  ParserHelper helper;
+    private Response response;
+
+
+    public OptimalPriceRetrieverImpl(){
+        helper=new ParserHelper();
+        response= new Response();
+    }
 
     @Override
     public Response getOptimalPrice(RentalRequest criteria)
     {
         if(null == criteria)
         {
-            throw new InternalServerErrorException("Internal Server Error");
+            throw new InternalServerErrorException();
         }
-        Response response = new Response();
-        Map<String, Double> lookUpMap = ParserHelper.loadResourceMap();
+        Map<String, Double> lookUpMap = helper.loadResourceMap();
         if(lookUpMap.size() == 0)
         {
             throw new InternalServerErrorException("Internal Server Error");

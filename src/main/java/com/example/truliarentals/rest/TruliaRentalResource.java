@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.ws.rs.PathParam;
 import java.io.IOException;
 
-
+/**
+ * Resource for calculating the optimal price of a rental.
+ */
 @CrossOrigin
 @RestController
 public class TruliaRentalResource {
